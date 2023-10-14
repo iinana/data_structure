@@ -98,8 +98,9 @@ int Delete(Course *c, int id)
     }
 }
 
-Student *Find(Student *h, int id)
+Student *Find(Course *c, int id)
 {
+    Student *h = c->head;
     while (h)
     {
         if (h->id == id) return h;
@@ -151,14 +152,14 @@ int main(int argc, char **argv)
             if (Delete(c, id)) print_linked(c, output);
             else fputs("Deletion Failed\n", output);
         }
-        // else if (ch == 'F')
-        // {
-        //     int id;
-        //     fscanf(input, "%d", &id);
-        //     Student *q = Find(h, id);
-        //     if (q) fprintf(output, "%d %s\n", q->id, q->name);
-        //     else fputs("Search Failed\n", output);
-        // }
+        else if (ch == 'F')
+        {
+            int id;
+            fscanf(input, "%d", &id);
+            Student *q = Find(c, id);
+            if (q) fprintf(output, "%d %s\n", q->id, q->name);
+            else fputs("Search Failed\n", output);
+        }
         else 
         {
             fputs("FUNCTION ERROR\n", output);
