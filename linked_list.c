@@ -80,6 +80,16 @@ int Delete(Student **h, int id)
     }
 }
 
+Student *Find(Student *h, int id)
+{
+    while (h)
+    {
+        if (h->id == id) return h;
+        h = h->next;
+    }
+    return NULL;
+}
+
 int main(int argc, char **argv)
 {
     if (argc != 3)
@@ -126,7 +136,10 @@ int main(int argc, char **argv)
         else if (c == 'F')
         {
             int id;
-            fscanf(input, "%d", id);
+            fscanf(input, "%d", &id);
+            Student *q = Find(h, id);
+            if (q) fprintf(output, "%d %s\n", q->id, q->name);
+            else fputs("Search Failed\n", output);
         }
         else fputs("FUNCTION ERROR\n", output);
     }
