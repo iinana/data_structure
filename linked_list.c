@@ -71,16 +71,19 @@ void print_linked(Course *c, FILE *out)
     fputc('\n', out);
 }
 
-int Delete(Student **h, int id)
+int Delete(Course *c, int id)
 {
-    if (id == (*h)->id)
+    if (isEmpty(c)) return 0;
+
+    Student *prev = c->head;
+    Student *curr = prev->next;
+    if (id == prev->id)
     {
-        *h = (*h)->next;
+        c->head = curr;
+        free(prev);
         return 1;
     }
 
-    Student *curr = (*h)->next;
-    Student *prev = *h;
     while (curr && (curr->id != id))
     {
         prev = curr;
@@ -140,14 +143,14 @@ int main(int argc, char **argv)
             if (Add(c, id, name)) print_linked(c, output);
             else fputs("Addition Failed\n", output);
         }
-        // else if (ch == 'D')
-        // {
-        //     int id;
-        //     fscanf(input, "%d", &id);
+        else if (ch == 'D')
+        {
+            int id;
+            fscanf(input, "%d", &id);
 
-        //     if (Delete(&h, id)) print_linked(h, output);
-        //     else fputs("Deletion Failed\n", output);
-        // }
+            if (Delete(c, id)) print_linked(c, output);
+            else fputs("Deletion Failed\n", output);
+        }
         // else if (ch == 'F')
         // {
         //     int id;
