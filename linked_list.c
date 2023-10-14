@@ -9,45 +9,60 @@ typedef struct STUDENT
     struct STUDENT *next;
 } Student;
 
-int Add(Student **h, int id, char *name)
+typedef struct COURSE
 {
+    Student *head;
+} Course;
+
+int isEmpty(Course *c)
+{
+    return (c->head == NULL);
+}
+
+int Add(Course *c, int id, char *name)
+{
+    if (isEmpty(c))
+    {
+        c->head = (Student *)malloc(sizeof(Student));
+        c->head->next = NULL;
+        c->head->id = id;
+        strcpy(c->head->name, name);
+        return 1;
+    }
+    if (c->head->id == id) return 0;
+    
+
+    Student *h = c->head;
     Student *s = (Student *)malloc(sizeof(Student));
     strcpy(s->name, name);
     s->id = id;
     s->next = NULL;
 
-    if ((*h) == NULL) *h = s;
-    else if ((*h)->id == id) 
+    if (h->id > id)
     {
-        free(s);
-        return 0;
+        s->next = h;
+        c->head = s;
+        return 1;
     }
-    else if ((*h)->id > id) 
+
+    while ((h->next) && (h->next->id < id)) h = h->next; 
+    if (h->next)
     {
-        s->next = *h;
-        *h = s;
-    }
-    else 
-    {   
-        Student *curr = *h;
-        while ((curr->next) && (curr->next->id < id)) curr = curr->next; 
-        if (curr->next)
+        if (h->next->id == id)
         {
-            if (curr->next->id == id)
-            {
-                free(s);
-                return 0;
-            }
-            s->next = curr->next;
-            curr->next = s;
+            free(s);
+            return 0;
         }
-        else curr->next = s;
+        s->next = h->next;
+        h->next = s;
     }
+    else h->next = s;
     return 1;
 }
 
-void print_linked(Student *h, FILE *out)
+void print_linked(Course *c, FILE *out)
 {
+    Student *h = c->head;
     while (h)
     {
         fprintf(out, "%d %s ", h->id, h->name);
@@ -107,14 +122,14 @@ int main(int argc, char **argv)
         return 0;
     }
 
-    char c;
+    char ch;
     int id;
-    Student *h = (Student *)malloc(sizeof(Student));
-    h = NULL;
-    while ((c = fgetc(input)) != EOF)
+    Course *c = (Course *)malloc(sizeof(Course));
+    c->head = NULL;
+    while ((ch = fgetc(input)) != EOF)
     {
-        if (c == '\n') continue;
-        else if (c == 'A')
+        if (ch == '\n') continue;
+        else if (ch == 'A')
         {
             int id;
             fscanf(input, "%d", &id);
@@ -122,33 +137,33 @@ int main(int argc, char **argv)
             char name[20];
             fscanf(input, "%s", name);
 
-            if (Add(&h, id, name)) print_linked(h, output);
+            if (Add(c, id, name)) print_linked(c, output);
             else fputs("Addition Failed\n", output);
         }
-        else if (c == 'D')
-        {
-            int id;
-            fscanf(input, "%d", &id);
+        // else if (ch == 'D')
+        // {
+        //     int id;
+        //     fscanf(input, "%d", &id);
 
-            if (Delete(&h, id)) print_linked(h, output);
-            else fputs("Deletion Failed\n", output);
-        }
-        else if (c == 'F')
+        //     if (Delete(&h, id)) print_linked(h, output);
+        //     else fputs("Deletion Failed\n", output);
+        // }
+        // else if (ch == 'F')
+        // {
+        //     int id;
+        //     fscanf(input, "%d", &id);
+        //     Student *q = Find(h, id);
+        //     if (q) fprintf(output, "%d %s\n", q->id, q->name);
+        //     else fputs("Search Failed\n", output);
+        // }
+        else 
         {
-            int id;
-            fscanf(input, "%d", &id);
-            Student *q = Find(h, id);
-            if (q) fprintf(output, "%d %s\n", q->id, q->name);
-            else fputs("Search Failed\n", output);
+            fputs("FUNCTION ERROR\n", output);
+            while((ch = fgetc(input)) != '\n') continue;
         }
-        else fputs("FUNCTION ERROR\n", output);
     }
 
     fclose(input);
     fclose(output);
-    while (h)
-    {
-        free(h);
-        h = h->next;
-    }
+    free(c);
 }
