@@ -17,6 +17,11 @@ int Add(Student **h, int id, char *name)
     s->next = NULL;
 
     if ((*h) == NULL) *h = s;
+    else if ((*h)->id == id) 
+    {
+        free(s);
+        return 0;
+    }
     else if ((*h)->id > id) 
     {
         s->next = *h;
@@ -25,14 +30,14 @@ int Add(Student **h, int id, char *name)
     else 
     {   
         Student *curr = *h;
-        while ((curr->id < id) && (curr->next)) curr = curr->next; 
-        if (curr->id == id) 
-        {
-            free(s);
-            return 0;
-        }
+        while ((curr->next) && (curr->next->id < id)) curr = curr->next; 
         if (curr->next)
         {
+            if (curr->next->id == id)
+            {
+                free(s);
+                return 0;
+            }
             s->next = curr->next;
             curr->next = s;
         }
@@ -51,6 +56,29 @@ void print_linked(Student *h, FILE *out)
     fputc('\n', out);
 }
 
+int Delete(Student **h, int id)
+{
+    if (id == (*h)->id)
+    {
+        *h = (*h)->next;
+        return 1;
+    }
+
+    Student *curr = (*h)->next;
+    Student *prev = *h;
+    while (curr && (curr->id != id))
+    {
+        prev = curr;
+        curr = curr->next;
+    }
+    if (!curr) return 0;
+    else
+    {
+        prev->next = curr->next;
+        free(curr);
+        return 1;
+    }
+}
 
 int main(int argc, char **argv)
 {
@@ -90,7 +118,10 @@ int main(int argc, char **argv)
         else if (c == 'D')
         {
             int id;
-            fscanf(input, "%d", id);
+            fscanf(input, "%d", &id);
+
+            if (Delete(&h, id)) print_linked(h, output);
+            else fputs("Deletion Failed\n", output);
         }
         else if (c == 'F')
         {
