@@ -9,19 +9,23 @@ typedef struct STUDENT
     struct STUDENT *next;
 } Student;
 
-int Add(Student *h, int id, char *name)
+int Add(Student **h, int id, char *name)
 {
     Student *s = (Student *)malloc(sizeof(Student));
     strcpy(s->name, name);
     s->id = id;
     s->next = NULL;
 
-    if (h->id == -1) h = s;
-    else if (h->id > id) s->next = h;
+    if ((*h) == NULL) *h = s;
+    else if ((*h)->id > id) 
+    {
+        s->next = *h;
+        *h = s;
+    }
     else 
     {   
-        Student *curr = h;
-        while (curr->id > id) curr = curr->next; 
+        Student *curr = *h;
+        while ((curr->id < id) && (curr->next)) curr = curr->next; 
         if (curr->id == id) 
         {
             free(s);
@@ -68,8 +72,7 @@ int main(int argc, char **argv)
     char c;
     int id;
     Student *h = (Student *)malloc(sizeof(Student));
-    h->id = -1;
-    h->next = NULL;
+    h = NULL;
     while ((c = fgetc(input)) != EOF)
     {
         if (c == '\n') continue;
@@ -81,9 +84,8 @@ int main(int argc, char **argv)
             char name[20];
             fscanf(input, "%s", name);
 
-            if (Add(h, id, name)) print_linked(h, output);
+            if (Add(&h, id, name)) print_linked(h, output);
             else fputs("Addition Failed\n", output);
-            printf("%d\n", h->id);
         }
         else if (c == 'D')
         {
