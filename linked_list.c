@@ -100,6 +100,8 @@ int Delete(Course *c, int id)
 
 Student *Find(Course *c, int id)
 {
+    if (isEmpty(c)) return NULL;
+
     Student *h = c->head;
     while (h)
     {
