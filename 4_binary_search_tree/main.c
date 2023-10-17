@@ -23,25 +23,26 @@ Node *Build(int *nums, int from, int to) {
     return head;
 }
 
+int Minimum(Node *head) {
+    while (head->left) head = head->left;
+    return head->value;
+}
+
+int Maximum(Node *head) {
+    while (head->right) head = head->right;
+    return head->value;
+}
+
 void Print_Tree(Node *head, int len) {
     int wid = (len + 1) / 2;
     int hei = sqrt(len + 1);
 
     char *form = (char *)malloc(sizeof(char) * wid);
-    sprintf(form, "%%%dd", wid);
+    sprintf(form, "%%%dd\n", wid);
     printf(form, head->value);
-
-    Node *left = (Node *)malloc(sizeof(Node));
-    Node *right = (Node *)malloc(sizeof(Node));
-    for (int i = 1; i < hei; i++) {
-        for (int j = 1; j <= wid; j *= 2) {
-            for (int x1 = 0; x1 < j/2; x1 += 2) {
-                printf("%d %d", head.left.left, head.left.right)
-            } 
-        }
-        head = head.left;
-    }
-
+    printf("  %d  %d\n", head->left->value, head->right->value);
+    printf("%d  %d  %d  %d\n", head->left->left->value, head->left->right->value, head->right->left->value, head->right->right->value);
+    printf("      %d       %d\n", head->left->right->right->value, head->right->right->right->value);
 }
 
 int main(int argc, char **argv) {
@@ -75,14 +76,29 @@ int main(int argc, char **argv) {
            head = Build(nums, 0, i-1);
            if (head != NULL) {
             fputs("B ", outFile);
-            for (int j = 0; j < i; j++) {
-                fprintf(outFile, "%d ", nums[j]);
-            } 
-           } else fputs("Build Error", outFile);
+            Print_Tree(head, i);
+           } else {
+            printf("Build Error");
+            return 1;
+           } 
         }
-        // else if (c == 'm')
-        // else if (c == 'M')
-        else  fputs("Function Erorr", outFile);
+        else if (c == 'm') {
+            int m = Minimum(head);
+            if (m) fprintf(outFile, "%d", m);
+            else {
+                printf("Minimum Finding Error");
+                return 1;
+            }
+        }
+        else if (c == 'M') {
+            int M = Maximum(head);
+            if (M) fprintf(outFile, "%d", M);
+            else {
+                printf("Maximum Finding Error");
+                return 1;
+            }
+        }
+        else  fputs("Function Error", outFile);
         fputc('\n', outFile);
     }
 }
