@@ -15,6 +15,7 @@ int main(int argc, char **argv) {
     while ((c = fgetc(inFile)) != EOF) {
         if (!isalpha(c)) continue;
         if (c == 'B') {
+           len = 0;
            int nums[30];
            while (fscanf(inFile, "%d", &nums[len]) == 1) {
             if ((len != 0) && (nums[len-1] > nums[len])) {
@@ -98,7 +99,14 @@ int main(int argc, char **argv) {
             }
             free(postorder);
         }
-        // else if (c == 'I')
+        else if (c == 'I') {
+            int a;
+            fscanf(inFile, "%d", &a);
+            if (Insert(&head, a)) {
+                len++;
+                fprintf(outFile, "I %d", a);
+            }
+        }
         // else if (c == 'D')
         else  fputs("Function Error", outFile);
         fputc('\n', outFile);

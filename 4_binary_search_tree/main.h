@@ -21,3 +21,5 @@ bool Search(Node *head, int q);
 void Inorder(Node *head, int *inorder, int *i);
 void Preorder(Node *head, int *preorder, int *i);
 void Postorder(Node *head, int *postorder, int *i);
+
+bool Insert(Node **head, int a);

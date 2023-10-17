@@ -1,6 +1,6 @@
 CC = gcc
 TARGET = main_exe
-OBJECTS = basic.o traversal.o main.o
+OBJECTS = basic.o traversal.o change.o main.o
 
 all : $(TARGET)
 
