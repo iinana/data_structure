@@ -35,7 +35,7 @@ int main(int argc, char **argv) {
         }
         else if (c == 'm') {
             int m = Minimum(head);
-            if (m) fprintf(outFile, "%d", m);
+            if (m) fprintf(outFile, "m %d", m);
             else {
                 printf("Minimum Finding Error\n");
                 return 1;
@@ -43,7 +43,7 @@ int main(int argc, char **argv) {
         }
         else if (c == 'M') {
             int M = Maximum(head);
-            if (M) fprintf(outFile, "%d", M);
+            if (M) fprintf(outFile, "M %d", M);
             else {
                 printf("Maximum Finding Error\n");
                 return 1;
@@ -52,7 +52,8 @@ int main(int argc, char **argv) {
         else if (c == 'S') {
             int q;
             fscanf(inFile, "%d", &q);
-            if (Search(head, q)) fprintf(outFile, "%d", q);
+            Node *n = Search(head, q);
+            if (n) fprintf(outFile, "S %d", n->value);
             else {
                 printf("Search Error\n");
                 return 1;
@@ -107,7 +108,15 @@ int main(int argc, char **argv) {
                 fprintf(outFile, "I %d", a);
             }
         }
-        // else if (c == 'D')
+        else if (c == 'D') {
+            int d;
+            fscanf(inFile, "%d", &d);
+            if (Delete(&head, d)) {
+                len--;
+                fprintf(outFile, "D %d", d);
+                if (head->right->right->right->right) printf("%d", head->right->right->right->right->value);
+            }
+        }
         else  fputs("Function Error", outFile);
         fputc('\n', outFile);
     }

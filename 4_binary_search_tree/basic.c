@@ -23,9 +23,9 @@ int Maximum(Node *head) {
     return head->value;
 }
 
-bool Search(Node *head, int q) {
-    if (!head) return false;
-    else if (q == head->value) return true;
+Node *Search(Node *head, int q) {
+    if (!head) return NULL;
+    else if (q == head->value) return head;
     
     if (q < head->value) Search(head->left, q);
     else if (q > head->value) Search(head->right, q);
