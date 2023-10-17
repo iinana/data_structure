@@ -1,3 +1,5 @@
 *.exe
 *.txt
 *.o
+
+./4_binary_search_tree/*.o
