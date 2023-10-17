@@ -11,7 +11,7 @@ void Inorder(Node *head, int *inorder, int *i) {
     Inorder(head->left, inorder, i);
     inorder[*i] = head->value;
     ++(*i);
-    Inorder(head->right, inorder, i);
+    if (head->right) Inorder(head->right, inorder, i);
 }
 
 void Preorder(Node *head, int *preorder, int *i) {
@@ -26,7 +26,7 @@ void Preorder(Node *head, int *preorder, int *i) {
     preorder[*i] = head->value;
     ++(*i);
     Preorder(head->left, preorder, i);
-    Preorder(head->right, preorder, i);
+    if (head->right) Preorder(head->right, preorder, i);
 }
 
 void Postorder(Node *head, int *postorder, int *i) {
