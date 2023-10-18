@@ -11,7 +11,7 @@ int main(int argc, char **argv) {
 
     char c;
     int len = 0, i, j;
-    Node *head = (Node *)malloc(sizeof(Node));
+    Node *head = NULL;
     while ((c = fgetc(inFile)) != EOF) {
         if (!isalpha(c)) continue;
         if (c == 'B') {
@@ -60,6 +60,11 @@ int main(int argc, char **argv) {
             }
         }
         else if (c == 'N') {
+            if (len == 0) {
+                fputs("N\n", outFile);
+                continue;
+            }
+
             int *inorder = (int *)malloc(sizeof(int) * len);
             i = 0;
             Inorder(head, inorder, &i);
@@ -67,12 +72,18 @@ int main(int argc, char **argv) {
                 fputc('N', outFile);
                 for (j = 0; j < len; j++) fprintf(outFile, " %d", inorder[j]);
             } else {
+                printf("i = %d, len = %d\n", i, len);
                 printf("Inorder Traversal Error\n");
                 return 1;
             }
             free(inorder);
         }
         else if (c == 'R') {
+            if (len == 0) {
+                fputs("R\n", outFile);
+                continue;
+            }
+
             int *preorder = (int *)malloc(sizeof(int) * len);
             i = 0;
             Preorder(head, preorder, &i);
@@ -87,6 +98,11 @@ int main(int argc, char **argv) {
             free(preorder);
         }
         else if (c == 'O') {
+            if (len == 0) {
+                fputs("O\n", outFile);
+                continue;
+            }
+
             int *postorder = (int *)malloc(sizeof(int) * len);
             i = 0;
             Postorder(head, postorder, &i);
@@ -109,12 +125,16 @@ int main(int argc, char **argv) {
             }
         }
         else if (c == 'D') {
+            if (len == 0) {
+                fputs("D : NO ELEMENT ERROR", outFile);
+                continue;
+            }
+
             int d;
             fscanf(inFile, "%d", &d);
             if (Delete(&head, d)) {
                 len--;
                 fprintf(outFile, "D %d", d);
-                if (head->right->right->right->right) printf("%d", head->right->right->right->right->value);
             }
         }
         else  fputs("Function Error", outFile);

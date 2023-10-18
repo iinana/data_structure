@@ -12,6 +12,7 @@ typedef struct NODE {
     struct NODE *right;
 } Node;
 
+
 Node *Build(int *nums, int from, int to);
 int Minimum(Node *head);
 int Maximum(Node *head);
@@ -24,4 +25,5 @@ void Postorder(Node *head, int *postorder, int *i);
 
 bool Insert(Node **head, int a);
 bool Delete(Node **head, int d);
-Node *FindSuccessor(Node *curr);
+bool Find_Par_Del(Node **par, Node **del, int d);
+Node *Find_Successor(Node *del);

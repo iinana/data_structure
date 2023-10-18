@@ -34,54 +34,68 @@ bool Insert(Node **head, int a) {
     return true;
 }
 
-// 걱정 : del에 대입하고 free해도 먹힐까?
+// 걱정 : del에 대입하고 free해도 먹힐까? - 안먹힌다 어케 해결하지
 bool Delete(Node **head, int d) {
-    Node *curr = (Node *)malloc(sizeof(Node));
-    if (d == (*head)->value) curr = *head;
-    else curr = Search(*head, d);
+    Node *par = (Node *)malloc(sizeof(Node));
+    Node *del = *head;
 
-    Node *suc = FindSuccessor(curr);
+    if (!Find_Par_Del(&par, &del, d)) return false;
+
+    Node *suc = Find_Successor(del);
     if (suc == NULL) {
-        free(curr);
-        return true;
+        if (del == *head) {
+            free(*head);
+            return true;
+        }
+        if ((par->left) && (par->left->value == d)) {
+            par->left = NULL;
+            free(del);
+            return true;
+        } 
+        else if ((par->right) && (par->right->value == d)) {
+            par->right = NULL;
+            free(del);
+            return true;
+        }
+        else return false;
+        
     }
     else {
-        if (Delete(head, suc->value)) {
-            curr->value = suc->value;
-            return true;
-        } else return false;
-    }
-
-    if (d == (*head)->value) {
-        Node *suc = FindSuccessor(*head);
-        while (suc->left) suc = suc->left;
-        
         int val = suc->value;
         if (Delete(head, val)) {
-            (*head)->value = val;
+            del->value = val;
             return true;
         } else return false;
     }
-    else {
-        Node *curr = Search(*head, d);
-        Node *suc = FindSuccessor(curr);
-        if (suc == NULL) {
-
-        }
-    }
-
 }
 
-Node *FindSuccessor(Node *curr) {
-    if (curr->right) {
-        curr = curr->right;
-        while (curr->left) curr = curr->left;
-        return curr;
+bool Find_Par_Del(Node **par, Node **del, int d) {
+    if ((*del)->value == d) return true;
+
+    if (d > (*del)->value) {
+        if ((*del)->right) {
+            *par = *del;
+            *del = (*del)->right;
+            return Find_Par_Del(par, del, d);
+        }
+        else return false;
     }
-    else if (curr->left) {
-        curr = curr->left;
-        while (curr->right) curr = curr->right;
-        return curr;
+    else {
+        if ((*del)->left) {
+            *par = *del;
+            *del = (*del)->left;
+            return Find_Par_Del(par, del, d);
+        }
+        else return false;
     }
-    else return NULL;
+}
+
+Node *Find_Successor(Node *del) {
+    if (!(del->left || del->right)) return NULL;
+    
+    if (del->right) del = del->right;
+    else return del->left;
+
+    while (del->left) del = del->left;
+    return del;
 }
