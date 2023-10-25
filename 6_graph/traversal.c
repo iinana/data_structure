@@ -23,7 +23,16 @@ int *BFS(Vertex *graph, int numV) {
             if (!visited[q]) Qpush(&que, q);
         }
     }
-    return bfs;
+
+    for (int i = 0; i < numV; i++) {
+        if (!visited[i]) {
+            bfs[count] = i;
+            count++;
+        }
+    }
+
+    if (count != numV) return NULL;
+    else return bfs;
 }
 
 int *DFS(Vertex *graph, int numV) {
@@ -48,5 +57,13 @@ int *DFS(Vertex *graph, int numV) {
         }
     }
 
-    return dfs;
+    
+    for (int i = 0; i < numV; i++) {
+        if (!visited[i]) {
+            dfs[count] = i;
+            count++;
+        }
+    }
+    if (count != numV) return NULL;
+    else return dfs;
 }
