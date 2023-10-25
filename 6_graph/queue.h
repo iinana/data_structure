@@ -10,5 +10,7 @@ typedef struct QUEUE {
 } Queue;
 
 Queue initializeQueue(int size);
-void push(Queue *que, int q);
-int pop(Queue *que);
+bool QisEmpty(Queue que);
+bool QisFull(Queue que);
+void Qpush(Queue *que, int q);
+int Qpop(Queue *que);

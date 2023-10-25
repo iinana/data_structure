@@ -1,5 +1,6 @@
 #include "main.h"
 #include "queue.h"
+#include "stack.h"
 
 int main(int args, char **argv) {
     if (args != 3) {

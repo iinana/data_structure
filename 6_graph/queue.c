@@ -11,16 +11,16 @@ Queue initializeQueue(int size) {
     return que;
 }
 
-bool isEmpty(Queue que) {
+bool QisEmpty(Queue que) {
     return (que.numItem == 0);
 }
 
-bool isFull(Queue que) {
+bool QisFull(Queue que) {
     return (que.numItem == que.len);
 }
 
-void push(Queue *que, int q) {
-    if (isFull(*que)) {
+void Qpush(Queue *que, int q) {
+    if (QisFull(*que)) {
         printf("Queue is Full\n");
         return;
     }
@@ -31,8 +31,8 @@ void push(Queue *que, int q) {
     ++(que->numItem);
 }
 
-int pop(Queue *que) {
-    if (isEmpty(*que)) {
+int Qpop(Queue *que) {
+    if (QisEmpty(*que)) {
         printf("Queue is Empty\n");
         return -1;
     }
