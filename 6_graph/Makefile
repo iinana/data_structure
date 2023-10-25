@@ -1,6 +1,6 @@
 CC = gcc
 TARGET = main_exe
-OBJECTS = basic_func.o stack.o queue.o traversal.o main.o
+OBJECTS = basic_func.o stack.o queue.o traversal.o topological.o main.o
 
 all : $(TARGET)
 

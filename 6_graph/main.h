@@ -18,3 +18,5 @@ bool isEdge(Vertex *graph, int from, int to);
 
 int *BFS(Vertex *graph, int numV);
 int *DFS(Vertex *graph, int numV);
+
+int *topologicalSort(Vertex *graph, int numV);

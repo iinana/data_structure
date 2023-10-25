@@ -78,7 +78,13 @@ int main(int args, char **argv) {
                 for (int i = 0; i < numV; i++) fprintf(outFile, " %d", dfs[i]);
             } else fputs("DFS Traversal Error", outFile);
         }
-        // else if (c == 'T') topologicalSort();
+        else if (c == 'T') {
+            int *t = topologicalSort(graph, numV);
+            if (t) {
+                fputc('T', outFile);
+                for (int i = 0; i < numV; i++) fprintf(outFile, " %d", t[i]);
+            } else fputs("Topological Sort Error", outFile);
+        }
         else fputs("Function Error", outFile);
         fputc('\n', outFile);
     }
