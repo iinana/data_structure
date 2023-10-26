@@ -31,7 +31,12 @@ int main(int argc, char **argv) {
 
             free(nums);
         }
-        // else if (c == 'P') isPerfectSquare();
+        else if (c == 'P') {
+            int x;
+            fscanf(inFile, "%d", &x);
+            if (isPerfectSquare(x)) fputc('T', outFile);
+            else fputc('F', outFile);
+        } 
         else fputs("Function Error", outFile);
         fputc('\n', outFile);
     }
