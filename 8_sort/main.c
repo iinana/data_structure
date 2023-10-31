@@ -29,7 +29,17 @@ int main(int argc, char **argv) {
             } else fputs("Merge Sort Error", outFile);
             free(nums);
         }
-        // else if (c == 'Q') mergeSort();
+        else if (c == 'Q') {
+            int len;
+            fscanf(inFile, "%d", &len);
+            int *nums = (int *)malloc(sizeof(int) * len);
+            for (int i = 0; i < len; i++) fscanf(inFile, "%d", &nums[i]);
+
+            if (quickSort(nums, 0, len-1)) {
+                fputc('Q', outFile);
+                for (int i = 0; i < len; i++) fprintf(outFile, " %d", nums[i]);
+            } else fputs("Quick Sort Error", outFile);
+        }
         else fputs("Function Error", outFile);
         fputc('\n', outFile);
     }

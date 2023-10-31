@@ -1,6 +1,6 @@
 CC = gcc
 TARGET = main_exe
-OBJECTS = mergeSort.o main.o
+OBJECTS = mergeSort.o quickSort.o main.o
 
 all : $(TARGET)
 
