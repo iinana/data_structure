@@ -23,7 +23,7 @@ int main(int argc, char **argv) {
             int *nums = (int *)malloc(sizeof(int) * len);
             for (int i = 0; i < len; i++) fscanf(inFile, "%d", &nums[i]);
 
-            if (mergeSort(nums, 0, len-1)) {
+            if (mergeDescending(nums, 0, len-1)) {
                 fputc('M', outFile);
                 for (int i = 0; i < len; i++) fprintf(outFile, " %d", nums[i]); 
             } else fputs("Merge Sort Error", outFile);
@@ -35,7 +35,7 @@ int main(int argc, char **argv) {
             int *nums = (int *)malloc(sizeof(int) * len);
             for (int i = 0; i < len; i++) fscanf(inFile, "%d", &nums[i]);
 
-            if (quickSort(nums, 0, len-1)) {
+            if (quickDescending(nums, 0, len-1)) {
                 fputc('Q', outFile);
                 for (int i = 0; i < len; i++) fprintf(outFile, " %d", nums[i]);
             } else fputs("Quick Sort Error", outFile);
