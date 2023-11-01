@@ -27,3 +27,14 @@ Hash *makeHash(int v, Hash *n) {
     h->next = n;
     return h;
 }
+
+bool Search(Hash **table, int q) {
+    int key = hash(q);
+    Hash *curr = table[key];
+
+    while (curr) {
+        if (q == curr->value) return true;
+        curr = curr->next;
+    }
+    return false;
+}

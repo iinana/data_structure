@@ -11,3 +11,5 @@ typedef struct HASH {
 Hash **makeHashTable(void);
 int hash(int value);
 Hash *makeHash(int v, Hash *n);
+
+bool Search(Hash **table, int q);
