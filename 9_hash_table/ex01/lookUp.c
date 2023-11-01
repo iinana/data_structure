@@ -2,7 +2,7 @@
 
 bool isRepeated(Hash **hashTable) {
     for (int i = 0; i < HASH_LEN; i++) {
-        if (hashTable[i]->value) {
+        if (hashTable[i]) {
             Hash *cur = hashTable[i];
             while (cur->next) {
                 int q = cur->value;
