@@ -3,3 +3,7 @@
 *.o
 
 ./4_binary_search_tree/*.o
+/**/*.o
+/**/subset_exe
+/**/main_exe
+/**/lookUp_exe
