@@ -7,3 +7,4 @@
 #include "../hash/hashFIO.h"
 
 bool TwoSum(Hash **table, int n);
+int (*SymmetricPairs(Hash **table, int len))[2];

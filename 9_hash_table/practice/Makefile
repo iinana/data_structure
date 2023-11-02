@@ -3,7 +3,7 @@ TARGET = main_exe
 SRCDIR = ../hash
 VPATH = $(SRCDIR):../practice
 
-SOURCES = $(SRCDIR)/hashFIO.c TwoSum.c main.c
+SOURCES = $(SRCDIR)/hashFIO.c function.c main.c
 OBJECTS = $(SOURCES:.c=.o)
 
 all: $(TARGET)

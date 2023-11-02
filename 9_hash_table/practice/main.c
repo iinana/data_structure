@@ -28,8 +28,34 @@ int main(int argc, char **argv) {
 
             freeHash(hashTable, n);
         } 
-        // else if (c == 'S') {
-        // } 
+        else if (c == 'S') {
+            int n;
+            fscanf(inFile, "%d", &n);
+
+            Hash **hashTable = (Hash **)malloc(sizeof(Hash) * n);
+            for (int i = 0; i < n; i++) hashTable[i] = NULL;
+
+            int key, value;
+            for (int i = 0; i < n; i++) {
+                fscanf(inFile, "%d", &key);
+                fscanf(inFile, "%d", &value);
+                if (hashTable[key]) {
+                    Hash *cur = hashTable[key];
+                    while (cur->next) cur = cur->next;
+                    cur->next = makeHash(value, NULL);
+                } else hashTable[key] = makeHash(value, NULL);
+            }
+
+            int (*res)[2] = SymmetricPairs(hashTable, n);
+            if (res) {
+                int i = 0;
+                while (res[i][0]) {
+                    fprintf(outFile, "( %d , %d )  ", res[i][0], res[i][1]); 
+                    i++;
+                }
+            } else fputs("Symmetirc Pairs Search Failed", outFile);
+            free(res);
+        } 
         else fputs("Function Error", outFile);
         fputc('\n', outFile);
     }
