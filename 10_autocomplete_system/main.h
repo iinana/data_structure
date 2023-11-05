@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #define MAX_WORD_LEN 30
 #define START_TRIES 1
@@ -10,8 +11,9 @@
 
 typedef struct TRIES {
     char ch;
-    struct TRIES *next;
+    struct TRIES **child;
+    int childNum;
 } Tries;
 
 Tries *buildTries(FILE *inFile, int len);
-void freeTries(Tries *tries);
+Tries *makeElement(char ch, int childLen);

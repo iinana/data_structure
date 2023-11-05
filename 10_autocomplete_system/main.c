@@ -23,12 +23,16 @@ int main(int argc, char **argv) {
             fscanf(inFile, "%d", &len);
 
             tries = buildTries(inFile, len);
+            while (tries->childNum > 0) {
+                printf("%d\n", tries->child[0]->ch);
+                tries = tries->child[0];
+            }
             break;
-        } else if (c == 'A') {
-        } else fputs("Function Error\n", outFile);
+        } 
+        // else if (c == 'A') {} 
+        else fputs("Function Error\n", outFile);
     }
-
-    freeTries(tries);
+    free(tries);
     fclose(inFile);
     fclose(outFile);
 }
