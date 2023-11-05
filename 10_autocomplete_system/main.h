@@ -7,7 +7,6 @@
 
 #define MAX_WORD_LEN 30
 #define START_TRIES 1
-#define END_TRIES 0
 
 typedef struct TRIES {
     char ch;
@@ -17,3 +16,5 @@ typedef struct TRIES {
 
 Tries *buildTries(FILE *inFile, int len);
 Tries *makeElement(char ch, int childLen);
+
+int autoComplete(char *prefix, Tries *tries, char (*res)[MAX_WORD_LEN]);

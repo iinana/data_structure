@@ -5,9 +5,11 @@ Tries *buildTries(FILE *inFile, int len) {
 
     for (int i = 0; i < len; i++) {
         char c = fgetc(inFile);
+        while (!isalpha(c)) c = fgetc(inFile);
         Tries *t = tries;
+
         while (t->childNum != 0) {
-            if (c == ' ') break;
+            if (!isalpha(c)) break;
 
             bool match = false;
             for (int i = 0; i < t->childNum; i++) {
@@ -20,7 +22,7 @@ Tries *buildTries(FILE *inFile, int len) {
             else c = fgetc(inFile);
         }
         
-        while (c != ' ') {
+        while (isalpha(c)) {
             t->child[t->childNum] = makeElement(c, len);
             ++(t->childNum);
 
