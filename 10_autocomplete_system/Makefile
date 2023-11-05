@@ -1,6 +1,6 @@
 CC = gcc
 TARGET = main_exe
-OBJECTS = Tries.o main.o
+OBJECTS = Tries.o AutoComplete.o main.o
 
 all : $(TARGET)
 

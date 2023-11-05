@@ -29,7 +29,7 @@ int main(int argc, char **argv) {
 
             char (*res)[MAX_WORD_LEN] = (char(*)[MAX_WORD_LEN])malloc(sizeof(char) * MAX_WORD_LEN * len);
             int num = autoComplete(prefix, tries, res);
-            for (int i = 0; i < num) fprintf(outFile, "%s ", res[i]);
+            for (int i = 0; i < num; i++) fprintf(outFile, "%s ", res[i]);
             fputc('\n', outFile);
         } 
         else fputs("Function Error\n", outFile);
