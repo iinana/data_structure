@@ -17,6 +17,7 @@ typedef struct TRIES {
 
 Tries *buildTries(FILE *inFile, int len);
 Tries *makeElement(char ch, int childLen);
+void freeTries(Tries *t);
 
 int autoComplete(char *prefix, Tries *tries, char (*res)[MAX_WORD_LEN]);
 void completeWord(char *word, int len, int *count, Tries *tries, char (*res)[MAX_WORD_LEN]);

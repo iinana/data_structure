@@ -40,3 +40,13 @@ Tries *makeElement(char ch, int childLen) {
     tries->childNum = 0;
     return tries;
 }
+
+void freeTries(Tries *t) {
+    if (t->childNum == 0) {
+        free(t);
+        return;
+    }
+
+    for (int i = 0; i < t->childNum; i++) freeTries(t->child[i]);
+    free(t);
+}

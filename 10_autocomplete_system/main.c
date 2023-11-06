@@ -31,10 +31,11 @@ int main(int argc, char **argv) {
             int num = autoComplete(prefix, tries, res);
             for (int i = 0; i < num; i++) fprintf(outFile, "%s ", res[i]);
             fputc('\n', outFile);
+            free(res);
         } 
         else fputs("Function Error\n", outFile);
     }
-    free(tries);
+    freeTries(tries);
     fclose(inFile);
     fclose(outFile);
 }
